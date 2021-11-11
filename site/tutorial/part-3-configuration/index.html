@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://example.com/tutorial/part-3-configuration/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Configuration - Kubernetes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Configuration";
+    var mkdocs_page_input_path = "tutorial/part-3-configuration.md";
+    var mkdocs_page_url = "/tutorial/part-3-configuration/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Kubernetes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Tutorial</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-1-architecture/">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-2-components/">Componenets</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Configuration</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-file-format">Configuration file format</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deployment-configuration-file">Deployment configuration file</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#blueprint-for-pods">Blueprint for pods</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#service-configuration-file">Service configuration file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#secret-configuration-file">Secret Configuration File</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-4-minikube_kubectl/">Minikube&Kubectl</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Advance</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../awsEks/">AWS EKS setup</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Sample Applications</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../../demo/mongo/mongo.md">Mongo</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../demo/spring-boot/mydemo/">Spring-boot</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Kubernetes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorial &raquo;</li>
+        
+      
+    
+    <li>Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="kubernetes-configuration">Kubernetes Configuration</h1>
+<p>All the configuration in <strong>kubernetes cluster</strong> goes through a master node with the process called <strong>API Server</strong>. <br>
+Configuration requests(yaml format) to the <strong>API SERVER</strong> which is the main entry point to the <strong>kubernetes Cluster</strong> can be established via three different <strong>Kubernetes clients</strong> which are.</p>
+<ul>
+<li>UI ( Kubernetes Dashboard) </li>
+<li>API (Script or curl command)</li>
+<li>CLI (kubectl)</li>
+</ul>
+<p><img src="/media/clients.png" alt="Girl in a jacket" width="240" > </p>
+<h2 id="configuration-file-format">Configuration file format</h2>
+<p>The format of the configruation files is <code>.yaml</code> where each configuration file has <strong>3 parts</strong>.</p>
+<ol>
+<li>metadata</li>
+<li>specification</li>
+<li>status<ul>
+<li>It is automatically generated and added by Kubernetes. Kubernetes will always the <strong>desired</strong> and <strong>actual</strong> state of that componenet. If they do not match, kubernetes will know that there is something to be fixed. K8s get the status data from <strong>etcd</strong>. Etcd hold at any time the current status of any kuberneted component and that's where the status information comes from. </li>
+</ul>
+</li>
+</ol>
+<p><img src="/media/config.png" alt="Girl in a jacket" width="640" > </p>
+<ul>
+<li>Attributes of "spec" are <strong>specific</strong> to the kind.</li>
+</ul>
+<h2 id="deployment-configuration-file">Deployment configuration file</h2>
+<p>Deployment is the <strong>blueprint</strong> for creating <strong>Pods</strong>.</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app:my-app
+spec:
+    replicas:2
+    selector:
+        matchLabels:
+            app:my-app
+    template:
+        metadata:
+            labels:
+            app: nginx
+        spec:
+            containers:
+                - name_ nginx
+                image: inginx:1.16
+                env:
+                    - name:SOME_ENV
+                    value:$SOME_ENV
+                ports:
+                - containerPort: 8080
+</code></pre>
+<h3 id="blueprint-for-pods">Blueprint for pods</h3>
+<p>spec &gt; template :
+- Has its own <strong>metadata</strong> and <strong>spec</strong> section.
+- Applies to Pod.
+- What is the name of the container, which port it should open etc.</p>
+<pre><code>        spec:
+            containers:
+                - name_ nginx
+                image: inginx:1.16
+                ports:
+                - containerPort: 8080
+
+</code></pre>
+<h2 id="service-configuration-file">Service configuration file</h2>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name : nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+</code></pre>
+<h2 id="secret-configuration-file">Secret Configuration File</h2>
+<pre><code>apiVersion: v1
+kind: Secret
+metadata:
+    name: mongodb-secret
+type: Opaque
+data:
+    mongo-root-username: fasfasfasd
+    mongo-rot-password: dgdsg34dad  
+</code></pre>
+<ul>
+<li>kind: Secret</li>
+<li>metadata/name: a random name</li>
+<li>type: "opaque" - default for arbitrar key-value paris</li>
+<li>data: the actual contents in the key-value pairs.</li>
+</ul>
+<p>Note:
+However the values in key/value pairs can not be plain text. They have to be 
+<code>echo -n '1234567' | base64</code></p>
+<p>Notes:
+- Since the config file is going to be applied your application, it's a good practice to store the config file with your code. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../part-4-minikube_kubectl/" class="btn btn-neutral float-right" title="Minikube&Kubectl">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../part-2-components/" class="btn btn-neutral" title="Componenets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../part-2-components/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../part-4-minikube_kubectl/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

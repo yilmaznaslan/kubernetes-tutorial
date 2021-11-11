@@ -1,16 +1,16 @@
 site_name: Kubernetes
 site_url: https://example.com/
 nav:
-    - Tutorial:
+    - Beginner Tutorial:
       - Introduction: index.md
       - Architecture: tutorial/part-1-architecture.md
       - Componenets: tutorial/part-2-components.md
       - Configuration: tutorial/part-3-configuration.md
       - Minikube&Kubectl: tutorial/part-4-minikube_kubectl.md
-    - Advance:
+    - Advance Tutorial:
       - AWS EKS setup: tutorial/awsEks.md
     - Sample Applications: 
-      - Mongo : demo/mongo/mongo.md
+      - Quarkus: demo-quarkus.md
       - Spring-boot : demo/spring-boot/mydemo/index.md
 
 

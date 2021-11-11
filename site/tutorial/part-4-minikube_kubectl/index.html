@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://example.com/tutorial/part-4-minikube_kubectl/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Minikube&Kubectl - Kubernetes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Minikube&Kubectl";
+    var mkdocs_page_input_path = "tutorial/part-4-minikube_kubectl.md";
+    var mkdocs_page_url = "/tutorial/part-4-minikube_kubectl/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Kubernetes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Tutorial</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-1-architecture/">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-2-components/">Componenets</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-3-configuration/">Configuration</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Minikube&Kubectl</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#minikube">Minikube</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#kubectl">Kubectl</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#crud-commands">CRUD commands</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#edit-sdeployment">Edit sdeployment</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#delete-deployment">Delete Deployment</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#debugging-pods">Debugging pods</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#use-configuration-file-for-crud">Use configuration file for CRUD</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#start-up">Start up</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Advance</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../awsEks/">AWS EKS setup</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Sample Applications</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../../demo/mongo/mongo.md">Mongo</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../demo/spring-boot/mydemo/">Spring-boot</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Kubernetes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorial &raquo;</li>
+        
+      
+    
+    <li>Minikube&Kubectl</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="minikube-kubectl">Minikube &amp; Kubectl</h1>
+<p>Usually in kubernetes work, when you set up a production cluster it will consists of Multiple Master and Worker Nodes, where each node represents a virtuel or physical machine. <br></p>
+<p><img src="/media/general.png" alt="Girl in a jacket" width="640" > </p>
+<p>So if you want to test something on your local environment or if you want to try somehtng out very quickly for example deploying a new application, setting up a cluster like this would be imposible if you don't have the enough resources such as CPU, RAM etc.</p>
+<p>Exactly for this use-case there is opensource tool called <strong>Minikube</strong>.</p>
+<h2 id="minikube">Minikube</h2>
+<p>Minikube is a one Noe cluster where master and worker node processes run on one node and this node will have a docker runtime environment pre-installed to able to trun the containers/pods</p>
+<ul>
+<li>Creates Virtual Box on your laptop</li>
+<li>Node runs in that Virtual Box</li>
+<li>1 Node K8s cluster</li>
+<li>for testing purposes</li>
+<li>Minikube has a docker pre-installed.</li>
+</ul>
+<p><img src="/media/minikube.png" alt="Girl in a jacket" width="640" > </p>
+<h2 id="kubectl">Kubectl</h2>
+<p>Now you have virtal node on your local machne represnets the minikube. kubectl is the way to communiate the kuberentes cluster/ API Server.
+Kubectl is used to communicate with any type of cluster minicube cluster or cloud cluster.</p>
+<p>An important thing here to note is that <strong>Kubectl</strong> is not only used for <strong>Minikue Cluster</strong>. It is the tool to use interact with any type of  <strong>Kubernetes Cluster</strong> setup such as Cloud Cluster, Hybrid Cluster of Miniube cluster.</p>
+<p><img src="/media/kubectl.png" alt="Girl in a jacket" width="640" > </p>
+<h3 id="commands">Commands</h3>
+<h4 id="crud-commands">CRUD commands</h4>
+<h5 id="create-poddeployment">Create Pod/Deployment</h5>
+<p>Note: In kubernetes you don't actually create Pods, but you create deployments. Deployments are abstracturn over Pods</p>
+<h5 id="usage">Usage</h5>
+<ul>
+<li><code>kubectl create deployment NAME --image=image</code></li>
+</ul>
+<h5 id="example">Example</h5>
+<ul>
+<li><code>kubectl create deployment nginx-depl --image=nginx</code></li>
+</ul>
+<h5 id="info">Info</h5>
+<p>when you create a deplyoemtn there are lots of options to enter. In practicaly the way to do that is using config files using apply</p>
+<h4 id="edit-sdeployment">Edit sdeployment</h4>
+<ul>
+<li><code>kubectl edit deployment nginx-depl</code> returns auto generated configuration file with default values.</li>
+</ul>
+<h4 id="delete-deployment">Delete Deployment</h4>
+<p><code>kubectl delete deployment mongo-depl</code></p>
+<p><code>kubectl delete -f nginx-service.yaml</code></p>
+<h5 id="status-of-different-k8s-componenets">Status of different K8s componenets</h5>
+<p><code>kubectl get nodes</code>
+- Everythins runs on master node.</p>
+<p><code>kubectl get services</code></p>
+<p><code>kubectl get deployment</code></p>
+<p><code>kubectl get pod</code></p>
+<p><code>kubectl get replicaset</code></p>
+<p><code>kubectl get deployment nginx-deployment -o yaml</code></p>
+<p><code>kubectl get deployment nginx-deployment -o yaml &gt; nginx-deployment-result.yaml</code></p>
+<p><code>kubectl get namespace</code></p>
+<h4 id="debugging-pods">Debugging pods</h4>
+<ul>
+<li>
+<p><code>kubectl describe xxxx</code></p>
+</li>
+<li>
+<p><code>kubectl logs</code></p>
+</li>
+<li>
+<p><code>kubectl exec -it mongo-depl-333434 -- bin/bash</code></p>
+</li>
+</ul>
+<h4 id="use-configuration-file-for-crud">Use configuration file for CRUD</h4>
+<ul>
+<li><code>kubectl apply -f nginx-deployment.yaml</code></li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Minikube needs virtualization because it is going to run in a virtual box setup or some hypervisor.
+1. Install Hypervisor
+    - Hyperkit, VirtualBox
+    - <code>2. Install Minicube
+    -</code>brew install minikube``</p>
+<h3 id="start-up">Start up</h3>
+<ol>
+<li>Tell Minikube which Hypervisor it should use.<ul>
+<li><code>minikube start --vm-driver=hyperkit</code></li>
+<li>Now kubectl  is now configured to use 'minikube', which means the minikube cluster is set up and kubectl command is also connected with the minikube cluster to interact with it.</li>
+</ul>
+</li>
+<li>Check if the kubectl is running<ul>
+<li><code>minikube status</code></li>
+<li><code>kubectl get nodes</code></li>
+<li><code>kubectl version</code></li>
+</ul>
+</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../awsEks/" class="btn btn-neutral float-right" title="AWS EKS setup">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../part-3-configuration/" class="btn btn-neutral" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../part-3-configuration/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../awsEks/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

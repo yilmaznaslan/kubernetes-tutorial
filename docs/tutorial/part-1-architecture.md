@@ -1,10 +1,14 @@
 # Kubernetes Architecture
 Kubernetes cluster is made up with 
-- at least one master node and
-- connected a couple of worker nodes, where each nod has a **kubelet**process running on it.
+
+- at least one **master node**e and
+- connected a couple of **worker nodes**, where each nod has a **kubelet** process running on it.
+> **Kubelet** Process is actually running kubernetes process that makes it possible for the cluster to communicate each other and execute some tasks on those nodes.
 
 <img src="/media/architecture.png" alt="Girl in a jacket" width="640" > 
 
+
+---
 ## Worker Node 
 Worker nodes do the actual work where each node has multiple Pods on it.
 

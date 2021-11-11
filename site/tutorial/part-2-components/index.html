@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://example.com/tutorial/part-2-components/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Componenets - Kubernetes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Componenets";
+    var mkdocs_page_input_path = "tutorial/part-2-components.md";
+    var mkdocs_page_url = "/tutorial/part-2-components/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Kubernetes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Tutorial</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-1-architecture/">Architecture</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Componenets</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#node-pod">Node &amp; pod</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#node">Node</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pod">Pod</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#service-ingres">Service &amp; Ingres</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#external-service">External Service</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#internal-service">Internal Service</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ingres">Ingres</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configmap-secret">ConfigMap &amp; Secret</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configmap">ConfigMap</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#secret">Secret</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#volume">Volume</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deployment-statefulset">Deployment &amp; statefulSet</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#deplyoment">Deplyoment</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stateful-set">Stateful Set</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#k8s-level-of-abstraction">K8s Level of Abstraction</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-3-configuration/">Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../part-4-minikube_kubectl/">Minikube&Kubectl</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Advance</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../awsEks/">AWS EKS setup</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Sample Applications</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../../demo/mongo/mongo.md">Mongo</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../demo/spring-boot/mydemo/">Spring-boot</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Kubernetes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorial &raquo;</li>
+        
+      
+    
+    <li>Componenets</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="kubernetes-components">Kubernetes Components</h1>
+<p>When you deploy Kubernetes, you get a <strong>cluster</strong>. Basic  components of a kubernetes cluster are </p>
+<ul>
+<li>Node &amp; Pod</li>
+<li>Service &amp; Ingress</li>
+<li>ConfigMap &amp; Secret</li>
+<li>Volumes</li>
+<li>Deployment &amp; statefulSet</li>
+</ul>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg" alt="Girl in a jacket" width="740" > </p>
+<p>A Kubernetes cluster consists of a set of <strong>worker nodes</strong> that run containerized applications. Every cluster has at least one worker node.</p>
+<ul>
+<li>The worker node(s) host <strong>Pods</strong> that are the components of the application workload.</li>
+<li>The master node(s) manages the worker nodes and pods in the cluster.</li>
+</ul>
+<h2 id="node-pod">Node &amp; pod</h2>
+<h3 id="node">Node</h3>
+<p>Nodes contain pods which has container running environments.
+Node is simple server a physical or virtual machine </p>
+<h3 id="pod">Pod</h3>
+<ul>
+<li>Smallest unit of K8s</li>
+<li>It creates running environment for containers. Basically it is a abstraction of container.</li>
+<li>You can run multiple containers in one pod but ussually 1 application container per Pod.</li>
+<li>Kubernetes offers a virtual network. That means each Pod gets itw own IP address not the continaer. So each Pod can communicate with each toher through these IP addresses(these are not public IP addresses.)</li>
+<li>Pods are <strong>ephemeral</strong> which means that they can die easly. When they die new ones will get created and will get a new IP address.</li>
+</ul>
+<p><img src="/media/pod.png" alt="Girl in a jacket" width="640" > </p>
+<h2 id="service-ingres">Service &amp; Ingres</h2>
+<p>Pods communicate with each other using Service. Service has 2 functionality
+- Service is a static/permantent IP address that can be attached to each pod. Each pod will have its own <strong>service</strong>.
+- Service is also a load balancer which means that the service will actually catch the request and forward it to whichever part is least busy.
+- Lifecycle of Pod and Service is not connected. So even if the pods dies , the service and its IP adress will stay.
+Load balancer</p>
+<p><img src="/media/service.png" alt="Girl in a jacket" width="640" > </p>
+<h3 id="external-service">External Service</h3>
+<p>External services that opens the communication from external sources.</p>
+<h3 id="internal-service">Internal Service</h3>
+<p>But for databases, you don't want it to be open to the public requests. For such Pods you create internal services.</p>
+<h3 id="ingres">Ingres</h3>
+<p>A request first goes to Ingres which forwards to the service.</p>
+<h2 id="configmap-secret">ConfigMap &amp; Secret</h2>
+<h3 id="configmap">ConfigMap</h3>
+<ul>
+<li>External configuration of your application</li>
+<li>It usually contains configruation data such as DB URL. It is usually connected to the Pod so that pod gets the data that config map contains.</li>
+<li>ConfigMap is for non-confidential data only !</li>
+</ul>
+<h3 id="secret">Secret</h3>
+<ul>
+<li>It is just like ConfigMap but it is used to store secret data, credentials.</li>
+<li>It is stored not in plane text format but base64 coding format.</li>
+<li>Just like configMap you connect Pod to it so that Pod sees the data.</li>
+</ul>
+<p><img src="/media/secret-configMap.png" alt="Girl in a jacket" width="640" > </p>
+<h2 id="volume">Volume</h2>
+<p>If the database container/pod restarts all the gets lost.<br />
+- Storage on local machine
+- or remote outside of K8's cluster.
+<img src="/media/volume.png" alt="Girl in a jacket" width="640" > </p>
+<h2 id="deployment-statefulset">Deployment &amp; statefulSet</h2>
+<h3 id="deplyoment">Deplyoment</h3>
+<p>If an application pod dies it would create a downtime where a user can not reach to application even in the production it can happen. The advantage of <strong>distributed systems and containers</strong> is instead of relying on just one applciation and one database, it is possible to replicate everything on multiple servers.</p>
+<p><img src="/media/deployment.png" alt="Girl in a jacket" width="640" > </p>
+<p>In kubernetes you don't create replicas, you would define a blueprint so called "<strong>Deployment</strong>", which is another component of kubernetes.</p>
+<p>Layers of Abstruction:</p>
+<ul>
+<li>Deployment manages a replicaset</li>
+<li>RepilcaSet manages all the replicas of that pod</li>
+<li>Pod is an abstraction of a container</li>
+<li>Container</li>
+</ul>
+<p>Note : Everything below <strong>Deployment</strong> is handled by kubernetes.
+Note : Database  pods can not be replicated using <strong>deployments</strong>, because dabase has a state which is its data. Meaning that if there are two replicas of the database the qould all need to access the same shared data storage ant there would need a mechanism that manages which pods are currently writing to that storage.</p>
+<h3 id="stateful-set">Stateful Set</h3>
+<p>So any Statefull application should be created using <strong>StatefulSet</strong> not <strong>Deployments</strong>.
+- StatefulSet's are just like deployments they take care of the repilcations
+- It is not a easy task to have statefulSet thats why it is common practice to host databases often outside of K8s cluster.</p>
+<h2 id="k8s-level-of-abstraction">K8s Level of Abstraction</h2>
+<p>put here image or info</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../part-3-configuration/" class="btn btn-neutral float-right" title="Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../part-1-architecture/" class="btn btn-neutral" title="Architecture"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../part-1-architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../part-3-configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
